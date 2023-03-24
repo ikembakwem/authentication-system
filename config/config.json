@@ -1,0 +1,9 @@
+{
+  "server": {
+    "port": 4000
+  },
+  "security": {
+    "secretKey": "BobbyLion",
+    "expiresIn": "7d"
+  }
+}
