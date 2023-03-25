@@ -18,7 +18,7 @@ export default {
     getUsers: (_: any, args: any, { models }: { models: IModels }): IUser[] => {
       return models.User.findAll();
     },
-    getuserData: async (
+    getUserData: async (
       _: any,
       { accessToken }: { accessToken: string },
       { models }: { models: IModels }

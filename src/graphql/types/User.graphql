@@ -18,7 +18,7 @@ input CreateUserInput {
   password: String!
   email: String!
   privilege: String!
-  active: Boolean!
+  active: Boolean
 }
 
 input LoginInput {

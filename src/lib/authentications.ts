@@ -1,5 +1,5 @@
 // Dependencies
-import { AuthenticationError } from "apollo-server";
+import { GraphQLError } from "graphql";
 
 // Utils
 import { encrypt, isPasswordMatch } from "@contentpi/lib";
@@ -33,7 +33,11 @@ export const doLogin = async (
 
   // If the user does not exist return an error message
   if (!user) {
-    throw new AuthenticationError("Invalid login");
+    throw new GraphQLError("Invalid login", {
+      extensions: {
+        code: "UNAUTHENTICATED",
+      },
+    });
   }
 
   // Verify that the entered password match the user entered password
@@ -44,12 +48,20 @@ export const doLogin = async (
 
   // If password does not match throw an error
   if (!passwordMatch) {
-    throw new AuthenticationError("Invalid login");
+    throw new GraphQLError("Invalid login", {
+      extensions: {
+        code: "UNAUTHENTICATED",
+      },
+    });
   }
 
   // If account is not active throw an error
   if (!isActive) {
-    throw new AuthenticationError("You have to activate your account");
+    throw new GraphQLError("You have to activate your account", {
+      extensions: {
+        code: "ACCOUNT_INACTIVE",
+      },
+    });
   }
 
   // If user exists, password matches and account is active. Create the JWT token
